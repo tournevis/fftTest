@@ -112,7 +112,7 @@ void ofApp::draw(){
         float x = p * ofGetWidth();
         float y2 = y3  - tempL[i] * 1000;
         ofDrawLine(x, y3, x, y2);
-        if(tempL[i]  > 0.018 ){
+        if(tempL[i]  > 0.018 && tempL[i]  < 0.022 ){
             printf("thigh freq  %f \n", tempL[i]);
             highFreq = x ;
         }

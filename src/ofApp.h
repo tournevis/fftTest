@@ -23,6 +23,9 @@ class ofApp : public ofxiOSApp {
         void deviceOrientationChanged(int newOrientation);
     
     int bufferCounter;
+    uint64_t millis;
+    uint64_t delay;
+    
     private:
     float highFreq;
     /*--------------------------------------------------------------

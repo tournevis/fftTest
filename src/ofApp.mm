@@ -7,11 +7,7 @@ void ofApp::setup(){
     ofSetOrientation(OF_ORIENTATION_90_RIGHT);
     
     /*--------------------------------------------------------------
-     
-     
      FFT
-     
-     
      --------------------------------------------------------------*/
     buffer_size = fft_size*2 ;
     left = new float[buffer_size];
@@ -40,11 +36,7 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
     /*--------------------------------------------------------------
-     
-     
      FFT
-     
-     
      --------------------------------------------------------------*/
     curTime = ofGetElapsedTimef();
     gapTime = curTime - preTime;
@@ -65,8 +57,6 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    
-    
     
     float y1 = ofGetHeight() ;
     
@@ -90,11 +80,6 @@ void ofApp::draw(){
     
     ofSetColor(245, 58, 135);
     ofSetLineWidth(3);
-
-    
-    
-    
-    
    
     /* for(int i=0; i<buffer_size; i++){
          float p = i / (float)(buffer_size-1);
@@ -107,20 +92,23 @@ void ofApp::draw(){
 
     float y3 = ofGetHeight()*0.5;
     
-    for(int i=0; i<buffer_size; i++){
+    for(int i=0; i<buffer_size/2; i++){
         float p = i / (float)(buffer_size-1);
         float x = p * ofGetWidth();
         float y2 = y3  - tempL[i] * 1000;
         ofDrawLine(x, y3, x, y2);
-        if(tempL[i]  > 0.018 && tempL[i]  < 0.022 ){
-            printf("thigh freq  %f \n", tempL[i]);
+        if(tempL[i]  > 0.018 && tempL[i]  < 0.020 ){
+           // printf("thigh freq  %f \n", tempL[i]);
+            uint64_t delay = ofGetElapsedTimeMillis();
             highFreq = x ;
+            if (millis + 500 < delay ) {
+                millis = ofGetElapsedTimeMillis();
+                printf("tPeriod ");
+            }
         }
-        
     }
     ofDrawBitmapString("buffers received: " + ofToString(bufferCounter), 20, ofGetHeight() - 40);
-
-
+    ofDrawBitmapString("buffers received: " + ofToString(millis), 20, ofGetHeight() - 20);
 }
 
 void ofApp::audioIn(float * input, int bufferSize, int nChannels){

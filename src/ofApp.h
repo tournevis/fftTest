@@ -2,7 +2,7 @@
 
 #include "ofxiOS.h"
 #include "fft.h"
-
+#include "detect.h" 
 class ofApp : public ofxiOSApp {
 	
     public:
@@ -21,10 +21,12 @@ class ofApp : public ofxiOSApp {
         void gotFocus();
         void gotMemoryWarning();
         void deviceOrientationChanged(int newOrientation);
-    
+    int myId;
     int bufferCounter;
-    uint64_t millis;
-    uint64_t delay;
+    int millis;
+    int delay;
+    int idDetect ;
+    vector<detect> _detect;
     
     private:
     float highFreq;

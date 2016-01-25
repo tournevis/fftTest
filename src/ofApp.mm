@@ -99,16 +99,23 @@ void ofApp::draw(){
         ofDrawLine(x, y3, x, y2);
         if(tempL[i]  > 0.018 && tempL[i]  < 0.020 ){
            // printf("thigh freq  %f \n", tempL[i]);
-            uint64_t delay = ofGetElapsedTimeMillis();
+            int delay = ofGetElapsedTimeMillis();
             highFreq = x ;
             if (millis + 500 < delay ) {
                 millis = ofGetElapsedTimeMillis();
                 printf("tPeriod ");
+                _detect.push_back( detect(x, myId) );
+                myId ++ ;
+                
             }
         }
     }
     ofDrawBitmapString("buffers received: " + ofToString(bufferCounter), 20, ofGetHeight() - 40);
     ofDrawBitmapString("buffers received: " + ofToString(millis), 20, ofGetHeight() - 20);
+    
+    for (vector<detect>::iterator f = _detect.begin(); f!= _detect.end(); f++) {
+        ofDrawBitmapString("freq: " + ofToString((*f)._freq), ofGetWidth()- 100 ,  20 * (*f)._id);
+    }
 }
 
 void ofApp::audioIn(float * input, int bufferSize, int nChannels){
